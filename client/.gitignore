@@ -1,0 +1,10 @@
+# Dependencies
+node_modules
+
+# Build artifacts
+dist
+.vite
+
+# Environment variables
+.env
+.env*.local
