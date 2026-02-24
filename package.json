@@ -6,6 +6,7 @@
   "scripts": {
     "install": "npm install --prefix server && npm install --prefix client",
     "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "build": "npm --prefix client run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
