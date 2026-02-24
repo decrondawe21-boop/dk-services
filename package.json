@@ -1,30 +1,35 @@
 {
-  "name": "dk-services",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "install": "npm install --prefix server && npm install --prefix client",
-    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
-    "build": "npm --prefix client run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/decrondawe21-boop/dk-services.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/decrondawe21-boop/dk-services/issues"
-  },
-  "homepage": "https://github.com/decrondawe21-boop/dk-services#readme",
   "dependencies": {
-    "concurrently": "^9.2.1"
+    "axios": "^1.13.5",
+    "lucide-react": "^0.575.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "vite": "^7.3.1"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.2.0"
+    "@eslint/js": "^9.39.1",
+    "@tailwindcss/postcss": "^4.2.0",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint": "^10.0.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.2.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.48.0"
   }
 }
