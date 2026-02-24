@@ -580,7 +580,13 @@ const App: React.FC = () => {
               /* --- WORKSPACE --- */
               <div className="animate-fade-in flex flex-col lg:flex-row h-screen overflow-hidden bg-[#020617] relative">
                 <aside className={`${theme === 'dark' ? 'bg-[#0f172a]' : 'bg-white'} border-r ${theme === 'dark' ? 'border-white/5' : 'border-slate-200'} transition-all duration-500 flex flex-col p-5 z-20 ${isSidebarCollapsed ? 'w-24' : 'w-80'}`}>
-                  <div className={`flex items-center gap-4 mb-14 mt-4 ${isSidebarCollapsed ? 'justify-center' : ''}`}><div className="w-12 h-12 rounded-2xl brand-gradient flex items-center justify-center font-black text-white shrink-0 shadow-lg">F</div>{!isSidebarCollapsed && <div className="flex flex-col text-left"><span className={`font-black ${textColor} text-xl tracking-tighter leading-none uppercase`}>Imaginator</span><span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest mt-1">Workspace v8.0</span></div>}</div>
+                  <div className={`flex items-center gap-4 mb-14 mt-4 ${isSidebarCollapsed ? 'justify-center' : ''}`}>
+                    <div className="w-12 h-12 rounded-2xl brand-gradient flex items-center justify-center font-black text-white shrink-0 shadow-lg">F</div>
+                    {!isSidebarCollapsed && <div className="flex flex-col text-left"><span className={`font-black ${textColor} text-xl tracking-tighter leading-none uppercase`}>Imaginator</span><span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest mt-1">Workspace v8.0</span></div>}
+                    <button onClick={() => setIsSidebarCollapsed(v => !v)} className={`ml-auto p-2 rounded-xl border ${theme === 'dark' ? 'border-white/10 bg-white/5 text-white' : 'border-slate-200 bg-slate-50 text-slate-700'} hover:opacity-80 transition-all`}>
+                      {isSidebarCollapsed ? <ChevronRight size={16}/> : <ChevronLeft size={16}/>}
+                    </button>
+                  </div>
                   <nav className="flex-1 space-y-3">
                     {[
                       { id: 'dashboard', label: 'Nástěnka', icon: LayoutDashboard },
