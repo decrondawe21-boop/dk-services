@@ -164,7 +164,7 @@ const App: React.FC = () => {
     title: 'Imaginator Studio',
     subtitle: 'Vize se stává realitou skrze AI',
     description: 'Vstupte do světa, kde hranice mezi fantazií a digitálním uměním mizí. STAX a F-Studio spojují síly, aby vám přinesli nejvýkonnější kreativní nástroje současnosti.',
-    videoUrl: 'SEM VLOZIT CESTU K VIDEU',
+    videoUrl: '/videos/video_fimaginator.mp4',
     logoUrl: 'https://stax.organicthemes.com/wp-content/uploads/2021/11/stax-logo-white.png',
     overlayColor: '#0f172a',
     overlayOpacity: 0.65,
