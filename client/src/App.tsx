@@ -194,7 +194,7 @@ const App: React.FC = () => {
       name: 'Jakub Svoboda', 
       role: 'Freelance Artist', 
       quote: 'Rychlost, s jakou mohu materializovat své myšlenky, úplně změnila můj workflow. Imaginator je pro mě nepostradatelný nástroj.',
-      image: '/img/david.PNG'
+      image: '/img/world.png'
     },
     { 
       id: 3, 
@@ -735,8 +735,8 @@ const App: React.FC = () => {
 
           {/* GLOBÁLNÍ FOOTER */}
           {currentPage !== 'imaginator' && (
-            <footer style={{ background: footerGradient }} className="relative pt-40 pb-20 overflow-hidden text-center border-t border-white/10 mt-auto">
-              <div className="relative z-10 max-w-[1300px] mx-auto px-6 text-white text-center">
+            <footer style={{ background: footerGradient }} className="relative pt-40 pb-20 overflow-hidden text-center border-t border-white/10 mt-auto w-full">
+              <div className="relative z-10 w-full px-6 text-white text-center">
                 <div className="flex justify-center mb-20 scale-100 md:scale-125"><img src="/img/FOOT.JPG" alt="Logo" style={{ width: '160px' }} className="h-auto" /></div>
                 <div className="flex justify-center items-center gap-10 md:gap-16 mb-20 text-white"><Facebook size={32}/><Instagram size={32}/><Twitter size={32}/></div>
                 <nav className="mb-20"><ul className="flex flex-wrap justify-center gap-x-10 md:gap-x-16 gap-y-6 text-white">{['Domů', 'F-IMAGINATOR', 'Předplatné', 'Zásady', 'FAQ'].map((link) => (<li key={link}><button onClick={()=>setCurrentPage(link==='Domů'?'home':link==='F-IMAGINATOR'?'imaginator':'pricing')} className="text-sm font-black uppercase tracking-[0.3em] hover:text-black transition-all">{link}</button></li>))}</ul></nav>
