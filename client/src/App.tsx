@@ -735,9 +735,15 @@ const App: React.FC = () => {
 
           {/* GLOBÁLNÍ FOOTER */}
           {currentPage !== 'imaginator' && (
-            <footer style={{ background: footerGradient }} className="relative pt-40 pb-20 overflow-hidden text-center border-t border-white/10 mt-auto w-full">
+            <footer className="relative pt-40 pb-20 overflow-hidden text-center border-t border-white/10 mt-auto w-full min-h-[400px] flex items-center justify-center">
+              {/* OBRÁZEK NA POZADÍ PATIČKY */}
+              <div className="absolute inset-0 z-0">
+                <img src="/img/FOOT.JPG" alt="Footer Background" className="w-full h-full object-cover" />
+                {/* Volitelný překryv pro lepší čitelnost obsahu nad obrázkem */}
+                <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px]"></div>
+              </div>
+
               <div className="relative z-10 w-full px-6 text-white text-center">
-                <div className="flex justify-center mb-20 scale-100 md:scale-125"><img src="/img/FOOT.JPG" alt="Logo" style={{ width: '160px' }} className="h-auto" /></div>
                 <div className="flex justify-center items-center gap-10 md:gap-16 mb-20 text-white"><Facebook size={32}/><Instagram size={32}/><Twitter size={32}/></div>
                 <nav className="mb-20"><ul className="flex flex-wrap justify-center gap-x-10 md:gap-x-16 gap-y-6 text-white">{['Domů', 'F-IMAGINATOR', 'Předplatné', 'Zásady', 'FAQ'].map((link) => (<li key={link}><button onClick={()=>setCurrentPage(link==='Domů'?'home':link==='F-IMAGINATOR'?'imaginator':'pricing')} className="text-sm font-black uppercase tracking-[0.3em] hover:text-black transition-all">{link}</button></li>))}</ul></nav>
                 <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="mb-20 p-6 rounded-[24px] border border-white/40 text-white hover:bg-white/10 transition-all shadow-2xl"><ArrowUp size={32} /></button>
