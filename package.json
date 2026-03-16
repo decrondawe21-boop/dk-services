@@ -26,5 +26,9 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.0"
+  },
+  "overrides": {
+    "flatted": "^3.4.0",
+    "minimatch": "^10.2.2"
   }
 }
