@@ -165,7 +165,7 @@ const App: React.FC = () => {
     subtitle: 'Vize se stává realitou skrze AI',
     description: 'Vstupte do světa, kde hranice mezi fantazií a digitálním uměním mizí. STAX a F-Studio spojují síly, aby vám přinesli nejvýkonnější kreativní nástroje současnosti.',
     videoUrl: '/videos/video_fimaginator.mp4',
-    logoUrl: 'https://stax.organicthemes.com/wp-content/uploads/2021/11/stax-logo-white.png',
+    logoUrl: '/img/FOOT.JPG',
     overlayColor: '#0f172a',
     overlayOpacity: 0.65,
   });
@@ -187,14 +187,14 @@ const App: React.FC = () => {
       name: 'David Kozák', 
       role: 'Majitel společnosti DKI', 
       quote: 'Vytváříme nejlepší uživatelské zážitky,',
-      image: 'client/public/img/david.PNG'
+      image: '/img/david.PNG'
     },
     { 
       id: 2, 
       name: 'Jakub Svoboda', 
       role: 'Freelance Artist', 
       quote: 'Rychlost, s jakou mohu materializovat své myšlenky, úplně změnila můj workflow. Imaginator je pro mě nepostradatelný nástroj.',
-      image: '/david.png'
+      image: '/img/david.PNG'
     },
     { 
       id: 3, 
@@ -737,7 +737,7 @@ const App: React.FC = () => {
           {currentPage !== 'imaginator' && (
             <footer style={{ background: footerGradient }} className="relative pt-40 pb-20 overflow-hidden text-center border-t border-white/10 mt-auto">
               <div className="relative z-10 max-w-[1300px] mx-auto px-6 text-white text-center">
-                <div className="flex justify-center mb-20 scale-100 md:scale-125"><img src="client/public/img/FOOT.JPG" alt="Logo" style={{ width: '160px' }} className="h-auto brightness-0 invert opacity-80" /></div>
+                <div className="flex justify-center mb-20 scale-100 md:scale-125"><img src="/img/FOOT.JPG" alt="Logo" style={{ width: '160px' }} className="h-auto" /></div>
                 <div className="flex justify-center items-center gap-10 md:gap-16 mb-20 text-white"><Facebook size={32}/><Instagram size={32}/><Twitter size={32}/></div>
                 <nav className="mb-20"><ul className="flex flex-wrap justify-center gap-x-10 md:gap-x-16 gap-y-6 text-white">{['Domů', 'F-IMAGINATOR', 'Předplatné', 'Zásady', 'FAQ'].map((link) => (<li key={link}><button onClick={()=>setCurrentPage(link==='Domů'?'home':link==='F-IMAGINATOR'?'imaginator':'pricing')} className="text-sm font-black uppercase tracking-[0.3em] hover:text-black transition-all">{link}</button></li>))}</ul></nav>
                 <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="mb-20 p-6 rounded-[24px] border border-white/40 text-white hover:bg-white/10 transition-all shadow-2xl"><ArrowUp size={32} /></button>
