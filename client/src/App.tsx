@@ -290,6 +290,23 @@ const App: React.FC = () => {
       return url;
     }
   };
+  const buildProjectFavicon = (url: string, provider: 'google' | 'duck' | 'iconhorse' = 'google') => {
+    const domain = getProjectDomain(url);
+    if (provider === 'duck') {
+      return `https://icons.duckduckgo.com/ip3/${domain}.ico`;
+    }
+    if (provider === 'iconhorse') {
+      return `https://icon.horse/icon/${domain}`;
+    }
+    return `https://www.google.com/s2/favicons?sz=128&domain_url=${encodeURIComponent(url)}`;
+  };
+  const getProjectMonogram = (name: string) =>
+    name
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((word) => word[0]?.toUpperCase())
+      .join('') || 'DK';
   // --- API LOGIKA ---
   const callGeminiText = async (promptText: string, systemInstruction: string) => {
     if (!apiKey) return null;
@@ -590,8 +607,36 @@ const App: React.FC = () => {
 
                             <div className="p-5 space-y-3">
                               <div className="flex items-center justify-between gap-3">
-                                <h3 className="text-white font-black text-lg tracking-tight">{project.name}</h3>
-                                <ExternalLink className="w-4 h-4 text-teal-200 opacity-70 group-hover/project:opacity-100" />
+                                <div className="flex items-center gap-3 min-w-0">
+                                  <div className="relative w-9 h-9 rounded-xl border border-white/25 bg-white/10 overflow-hidden shrink-0">
+                                    <span className="absolute inset-0 flex items-center justify-center text-white text-[10px] font-black uppercase tracking-wide">
+                                      {getProjectMonogram(project.name)}
+                                    </span>
+                                    <img
+                                      src={buildProjectFavicon(project.url)}
+                                      alt={`${project.name} logo`}
+                                      loading="lazy"
+                                      referrerPolicy="no-referrer"
+                                      className="relative z-10 w-full h-full object-cover"
+                                      onError={(event) => {
+                                        const target = event.currentTarget;
+                                        if (target.dataset.faviconProvider !== 'duck') {
+                                          target.dataset.faviconProvider = 'duck';
+                                          target.src = buildProjectFavicon(project.url, 'duck');
+                                          return;
+                                        }
+                                        if (target.dataset.faviconProvider !== 'iconhorse') {
+                                          target.dataset.faviconProvider = 'iconhorse';
+                                          target.src = buildProjectFavicon(project.url, 'iconhorse');
+                                          return;
+                                        }
+                                        target.style.display = 'none';
+                                      }}
+                                    />
+                                  </div>
+                                  <h3 className="text-white font-black text-lg tracking-tight truncate">{project.name}</h3>
+                                </div>
+                                <ExternalLink className="w-4 h-4 text-teal-200 opacity-70 group-hover/project:opacity-100 shrink-0" />
                               </div>
                               <p className="text-white/80 text-sm leading-relaxed">{project.description}</p>
                             </div>
