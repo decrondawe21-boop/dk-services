@@ -7,7 +7,7 @@ import {
   Zap, Facebook, Instagram, Twitter, Check,
   LayoutDashboard, Image as ImageIcon, History, User, Settings as SettingsIcon,
   Bell, Loader2, Palette as PaletteIcon, Hash, Quote, Download,
-  Plus, Minus, Shuffle, BookOpen, Box, Columns
+  Plus, Minus, Shuffle, BookOpen, Box, Columns, ExternalLink
 } from 'lucide-react';
 
 // Typy pro data
@@ -212,6 +212,59 @@ const App: React.FC = () => {
     { id: 4, q: 'Je moje galerie soukromá?', a: 'Ano, vaše vygenerované artefakty se ukládají lokálně v mezipaměti prohlížeče a v rámci vašeho profilu v této relaci.' }
   ];
 
+  const publicProjects = [
+    {
+      name: 'International',
+      url: 'https://international.david-kozak.com',
+      description: 'Hlavní firemní prezentace značky David Kozák International s.r.o.'
+    },
+    {
+      name: 'Studio',
+      url: 'https://studio.david-kozak.com',
+      description: 'Kreativní studio zaměřené na vizuální identitu a digitální tvorbu.'
+    },
+    {
+      name: 'Imaginator',
+      url: 'https://imaginator.david-kozak.com',
+      description: 'AI platforma pro generování obsahu a kreativní workflow.'
+    },
+    {
+      name: 'New Project',
+      url: 'https://new.david-kozak.com/',
+      description: 'Experimentální prostor pro nové nápady a prototypy.'
+    },
+    {
+      name: 'Silver',
+      url: 'https://silver.david-kozak.com/',
+      description: 'Specializovaný projekt pod brandem David Kozák.'
+    },
+    {
+      name: 'Osobní',
+      url: 'https://osobni.david-kozak.com/',
+      description: 'Osobní stránka s osobními projekty a aktualitami.'
+    },
+    {
+      name: 'Životopis',
+      url: 'https://zivotopis.david-kozak.com/',
+      description: 'Profesní profil, zkušenosti a reference.'
+    },
+    {
+      name: 'Appka',
+      url: 'https://appka.david-kozak.com/',
+      description: 'Aplikační projekty a praktické nástroje pro klienty.'
+    },
+    {
+      name: 'Dev / DK',
+      url: 'https://dk.david-kozak.com',
+      description: 'Technické a vývojové projekty z prostředí DK.'
+    },
+    {
+      name: 'AI Chat Bot',
+      url: 'https://www.david-kozak.com',
+      description: 'Veřejný AI asistent a interaktivní komunikační kanál.'
+    }
+  ];
+
   // --- DESIGN TOKENY ---
   const brandGradient = 'linear-gradient(135deg, #0ea5e9 0%, #06b6d4 33%, #14b8a6 66%, #10b981 100%)';
   const imaginatorBgDark = 'radial-gradient(circle at top left, #082f49, #0f172a, #020617)';
@@ -224,6 +277,19 @@ const App: React.FC = () => {
   const secondaryTextColor = theme === 'dark' ? 'text-slate-400' : 'text-slate-500';
   const cardBg = theme === 'dark' ? 'bg-white/5' : 'bg-white/80';
   const iconGlow = theme === 'dark' ? '0 0 50px rgba(14, 165, 233, 0.6)' : '0 0 50px rgba(16, 185, 129, 0.4)';
+  const buildProjectThumbnail = (url: string, provider: 'thumio' | 'mshots' = 'thumio') => {
+    if (provider === 'mshots') {
+      return `https://s.wordpress.com/mshots/v1/${encodeURIComponent(url)}?w=1200`;
+    }
+    return `https://image.thum.io/get/width/1200/noanimate/${url}`;
+  };
+  const getProjectDomain = (url: string) => {
+    try {
+      return new URL(url).hostname;
+    } catch {
+      return url;
+    }
+  };
   // --- API LOGIKA ---
   const callGeminiText = async (promptText: string, systemInstruction: string) => {
     if (!apiKey) return null;
@@ -463,6 +529,77 @@ const App: React.FC = () => {
                          <button onClick={() => setCurrentPage('imaginator')} className="px-12 py-6 rounded-[24px] font-black text-xs uppercase tracking-widest border border-emerald-500/30 text-emerald-500 hover:bg-emerald-500/10 transition-all shadow-emerald-500/5 shadow-2xl">Vstoupit do Ateliéru</button>
                       </div>
                    </div>
+                </section>
+
+                {/* PROJECTS BLOCK (TEAL/EMERALD) */}
+                <section className="max-w-7xl mx-auto px-4 py-20">
+                  <div className="bg-gradient-to-br from-teal-700 via-emerald-700 to-teal-600 rounded-[2rem] p-8 md:p-16 shadow-2xl overflow-hidden relative group">
+                    <div className="absolute top-0 right-0 w-full h-full opacity-20 pointer-events-none">
+                      <img
+                        src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200"
+                        alt=""
+                        className="w-full h-full object-cover mix-blend-overlay"
+                      />
+                    </div>
+
+                    <div className="relative z-10 space-y-10">
+                      <div className="space-y-4 text-left max-w-3xl">
+                        <h6 className="text-teal-100 font-black uppercase tracking-[0.4em] text-sm md:text-base">Portfolio</h6>
+                        <h2 className="text-white text-4xl md:text-6xl font-black leading-tight">
+                          Veřejné <span className="text-teal-200">Projekty</span>
+                        </h2>
+                        <p className="text-white/85 text-lg leading-relaxed">
+                          Prostor pro veřejné realizace s automatickými náhledy, odkazy a krátkým popisem projektů pod značkou
+                          <strong> David Kozák International s.r.o.</strong>
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                        {publicProjects.map((project) => (
+                          <a
+                            key={project.url}
+                            href={project.url}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            className="group/project rounded-2xl overflow-hidden border border-white/20 bg-black/20 backdrop-blur-md hover:bg-black/30 transition-all duration-500 hover:-translate-y-1"
+                          >
+                            <div className="relative aspect-[16/10] overflow-hidden">
+                              <div className="absolute inset-0 bg-gradient-to-br from-teal-900 via-emerald-900 to-cyan-900 flex items-end p-4">
+                                <p className="text-[10px] text-white/80 font-black uppercase tracking-[0.3em]">
+                                  {getProjectDomain(project.url)}
+                                </p>
+                              </div>
+                              <img
+                                src={buildProjectThumbnail(project.url)}
+                                alt={`Náhled projektu ${project.name}`}
+                                loading="lazy"
+                                referrerPolicy="no-referrer"
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/project:scale-105"
+                                onError={(event) => {
+                                  const target = event.currentTarget;
+                                  if (target.dataset.fallbackProvider !== 'mshots') {
+                                    target.dataset.fallbackProvider = 'mshots';
+                                    target.src = buildProjectThumbnail(project.url, 'mshots');
+                                    return;
+                                  }
+                                  target.style.display = 'none';
+                                }}
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-[#052e2b]/80 via-transparent to-transparent"></div>
+                            </div>
+
+                            <div className="p-5 space-y-3">
+                              <div className="flex items-center justify-between gap-3">
+                                <h3 className="text-white font-black text-lg tracking-tight">{project.name}</h3>
+                                <ExternalLink className="w-4 h-4 text-teal-200 opacity-70 group-hover/project:opacity-100" />
+                              </div>
+                              <p className="text-white/80 text-sm leading-relaxed">{project.description}</p>
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </section>
 
                 {/* FAQ SECTION */}
