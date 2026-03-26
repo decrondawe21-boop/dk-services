@@ -7,7 +7,7 @@ const DEFAULT_TITLE = 'AI studio a digitalni produkty';
 const DEFAULT_DESCRIPTION = 'Vyvoj, kreativni automatizace a digitalni produkty pod brandem David Kozak.';
 const BRAND_GRADIENT = 'linear-gradient(135deg, #020617 0%, #0f172a 42%, #155e75 100%)';
 
-const clampText = (value, fallback, maxLength) => {
+const clampText = (value: string | null, fallback: string, maxLength: number): string => {
   const normalized = typeof value === 'string' ? value.replace(/\s+/g, ' ').trim() : '';
 
   if (!normalized) {
@@ -17,11 +17,7 @@ const clampText = (value, fallback, maxLength) => {
   return normalized.slice(0, maxLength);
 };
 
-export const edgeConfig = {
-  runtime: 'edge',
-};
-
-export const createSocialImage = (request, variant) => {
+export const createSocialImage = (request: Request, variant: 'og' | 'twitter') => {
   const { searchParams } = new URL(request.url);
   const title = clampText(searchParams.get('title'), DEFAULT_TITLE, 60);
   const description = clampText(searchParams.get('description'), DEFAULT_DESCRIPTION, 140);
@@ -41,7 +37,7 @@ export const createSocialImage = (request, variant) => {
           overflow: 'hidden',
           background: BRAND_GRADIENT,
           color: '#f8fafc',
-          fontFamily: 'Noto Sans, sans-serif',
+          fontFamily: 'sans-serif',
         }}
       >
         <div
@@ -233,7 +229,7 @@ export const createSocialImage = (request, variant) => {
                   letterSpacing: '0.18em',
                 }}
               >
-                dk.david-kozak.com
+                {SITE_DOMAIN}
               </div>
             </div>
           </div>
