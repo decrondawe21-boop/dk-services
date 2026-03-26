@@ -22,10 +22,7 @@
   },
   "homepage": "https://github.com/decrondawe21-boop/dk-services#readme",
   "dependencies": {
-    "@vercel/og": "^0.11.1",
-    "concurrently": "^9.2.1",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "concurrently": "^9.2.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.0"

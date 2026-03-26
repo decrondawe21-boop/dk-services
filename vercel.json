@@ -2,5 +2,15 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "outputDirectory": "client/dist",
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/api/og",
+      "destination": "/og-image.png"
+    },
+    {
+      "source": "/api/twitter-image",
+      "destination": "/twitter-image.png"
+    }
+  ]
 }
