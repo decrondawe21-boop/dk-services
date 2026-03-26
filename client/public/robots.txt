@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Allow: /api/og
+Allow: /api/twitter-image
+
+Sitemap: https://dk.david-kozak.com/sitemap.xml
