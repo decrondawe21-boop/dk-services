@@ -4,11 +4,24 @@ import {
   Menu, X, Home, Sparkles, CreditCard,
   Sun, Moon, Smartphone, Monitor,
   ArrowLeft, ArrowUp, ChevronLeft, ChevronRight,
-  Zap, Facebook, Instagram, Twitter, Check,
+  Zap, Check, Globe,
   LayoutDashboard, Image as ImageIcon, History, User, Settings as SettingsIcon,
   Bell, Loader2, Palette as PaletteIcon, Hash, Quote, Download,
   Plus, Minus, Shuffle, BookOpen, Box, Columns, ExternalLink
 } from 'lucide-react';
+import {
+  FaBloggerB,
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaPinterestP,
+  FaThreads,
+  FaTiktok,
+  FaTumblr,
+  FaTwitch,
+  FaXTwitter,
+  FaYoutube,
+} from 'react-icons/fa6';
 
 // Typy pro data
 interface GeneratedEntry {
@@ -33,6 +46,55 @@ interface UserProfile {
   bio: string;
   avatar: string | null;
 }
+
+interface FooterSocialLink {
+  platform: string;
+  label: string;
+  url: string;
+  icon: React.ElementType;
+}
+
+const FOOTER_SOCIAL_LINKS: FooterSocialLink[] = [
+  { platform: 'Facebook', label: 'DKI s.r.o.', url: 'https://facebook.com/dki.sro/', icon: FaFacebookF },
+  { platform: 'Facebook', label: 'Restart Integrace', url: 'https://www.facebook.com/people/Restart-Integrace/61578734430090/', icon: FaFacebookF },
+  { platform: 'YouTube', label: 'David Kozak International', url: 'https://www.youtube.com/@DavidKoz%C3%A1k-International', icon: FaYoutube },
+  { platform: 'Blogspot', label: 'Restart Integrace', url: 'https://restartintegrace.blogspot.com/', icon: FaBloggerB },
+  { platform: 'Instagram', label: '@davidkozak.i', url: 'https://www.instagram.com/davidkozak.i/', icon: FaInstagram },
+  { platform: 'LinkedIn', label: 'David Kozak', url: 'https://www.linkedin.com/in/david-koz%C3%A1k-5b1ab5365', icon: FaLinkedinIn },
+  { platform: 'Web', label: 'davidkozak.social', url: 'https://davidkozak.social/', icon: Globe },
+  { platform: 'X', label: '@DavidKozak0204', url: 'https://x.com/DavidKozak0204', icon: FaXTwitter },
+  { platform: 'Threads', label: '@davidkozak.i', url: 'https://www.threads.net/@davidkozak.i', icon: FaThreads },
+  { platform: 'Tumblr', label: 'dkisro', url: 'https://www.tumblr.com/dkisro', icon: FaTumblr },
+  { platform: 'Pinterest', label: 'davidkozak0i', url: 'https://www.pinterest.com/davidkozak0i', icon: FaPinterestP },
+  { platform: 'Twitch', label: 'davidkozak1nternational', url: 'https://www.twitch.tv/davidkozak1nternational', icon: FaTwitch },
+  { platform: 'TikTok', label: '@david.kozak.i', url: 'https://www.tiktok.com/@david.kozak.i', icon: FaTiktok },
+];
+
+const FooterSocialCard: React.FC<{ link: FooterSocialLink }> = ({ link }) => {
+  const Icon = link.icon;
+
+  return (
+    <a
+      href={link.url}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={`${link.platform}: ${link.label}`}
+      className="group flex items-center gap-3 rounded-[24px] border border-white/15 bg-black/35 px-4 py-3 text-left text-white shadow-2xl backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-black/50"
+    >
+      <span className="flex h-12 w-12 items-center justify-center rounded-[18px] border border-white/15 bg-white/8 text-white transition-all duration-300 group-hover:border-cyan-300/50 group-hover:text-cyan-200">
+        <Icon size={20} />
+      </span>
+      <span className="min-w-0">
+        <span className="block text-[10px] font-black uppercase tracking-[0.24em] text-cyan-200/80">
+          {link.platform}
+        </span>
+        <span className="block truncate text-sm font-semibold text-white/95">
+          {link.label}
+        </span>
+      </span>
+    </a>
+  );
+};
 
 // --- DATA: STYLY PRO GENERÁTOR ---
 const STYLES = [
@@ -926,7 +988,16 @@ const App: React.FC = () => {
               </div>
 
               <div className="relative z-10 w-full px-6 text-white text-center">
-                <div className="flex justify-center items-center gap-10 md:gap-16 mb-20 text-white"><Facebook size={32}/><Instagram size={32}/><Twitter size={32}/></div>
+                <div className="mb-16 max-w-6xl mx-auto">
+                  <p className="mb-4 text-[10px] font-black uppercase tracking-[0.4em] text-cyan-100/80">
+                    Sociální sítě a veřejné kanály
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 text-white">
+                    {FOOTER_SOCIAL_LINKS.map((link) => (
+                      <FooterSocialCard key={`${link.platform}-${link.label}`} link={link} />
+                    ))}
+                  </div>
+                </div>
                 <nav className="mb-20"><ul className="flex flex-wrap justify-center gap-x-10 md:gap-x-16 gap-y-6 text-white">{['Domů', 'F-IMAGINATOR', 'Předplatné', 'Zásady', 'FAQ'].map((link) => (<li key={link}><button onClick={()=>setCurrentPage(link==='Domů'?'home':link==='F-IMAGINATOR'?'imaginator':'pricing')} className="text-sm font-black uppercase tracking-[0.3em] hover:text-black transition-all">{link}</button></li>))}</ul></nav>
                 <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="mb-20 p-6 rounded-[24px] border border-white/40 text-white hover:bg-white/10 transition-all shadow-2xl"><ArrowUp size={32} /></button>
                 <div className="pt-16 border-t border-white/20 text-[11px] font-black uppercase tracking-[0.5em] flex flex-col md:flex-row justify-center gap-8 md:gap-16 opacity-60">
