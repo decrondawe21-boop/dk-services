@@ -4,10 +4,10 @@ import {
   Menu, X, Home, Sparkles, CreditCard,
   Sun, Moon, Smartphone, Monitor,
   ArrowLeft, ArrowUp, ChevronLeft, ChevronRight,
-  Zap, Check, Globe,
+  Zap, Check, Globe, Mail, MapPin, Phone,
   LayoutDashboard, Image as ImageIcon, History, User, Settings as SettingsIcon,
   Bell, Loader2, Palette as PaletteIcon, Hash, Quote, Download,
-  Plus, Minus, Shuffle, BookOpen, Box, Columns, ExternalLink
+  Plus, Minus, Shuffle, BookOpen, ExternalLink
 } from 'lucide-react';
 import {
   FaBloggerB,
@@ -54,6 +54,13 @@ interface FooterSocialLink {
   icon: React.ElementType;
 }
 
+interface FooterContactItem {
+  label: string;
+  value: string;
+  href?: string;
+  icon: React.ElementType;
+}
+
 const FOOTER_SOCIAL_LINKS: FooterSocialLink[] = [
   { platform: 'Facebook', label: 'DKI s.r.o.', url: 'https://facebook.com/dki.sro/', icon: FaFacebookF },
   { platform: 'Facebook', label: 'Restart Integrace', url: 'https://www.facebook.com/people/Restart-Integrace/61578734430090/', icon: FaFacebookF },
@@ -70,6 +77,14 @@ const FOOTER_SOCIAL_LINKS: FooterSocialLink[] = [
   { platform: 'TikTok', label: '@david.kozak.i', url: 'https://www.tiktok.com/@david.kozak.i', icon: FaTiktok },
 ];
 
+const FOOTER_CONTACT_ITEMS: FooterContactItem[] = [
+  { label: 'Osobní web', value: 'www.osobnidavid-kozak.com', href: 'https://www.osobnidavid-kozak.com', icon: Globe },
+  { label: 'Telefon', value: '+420 705 224 436', href: 'tel:+420705224436', icon: Phone },
+  { label: 'Social hub', value: 'www.davidkozak.social', href: 'https://davidkozak.social/', icon: Globe },
+  { label: 'Lokace', value: 'Czech Republic - Ústí nad Labem', icon: MapPin },
+  { label: 'E-mail', value: 'kozak@d-international.eu', href: 'mailto:kozak@d-international.eu', icon: Mail },
+];
+
 const FooterSocialCard: React.FC<{ link: FooterSocialLink }> = ({ link }) => {
   const Icon = link.icon;
 
@@ -79,9 +94,9 @@ const FooterSocialCard: React.FC<{ link: FooterSocialLink }> = ({ link }) => {
       target="_blank"
       rel="noreferrer"
       aria-label={`${link.platform}: ${link.label}`}
-      className="group flex items-center gap-3 rounded-[24px] border border-white/15 bg-black/35 px-4 py-3 text-left text-white shadow-2xl backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-black/50"
+      className="group flex items-center gap-3 rounded-[24px] border border-white/15 bg-white/10 px-4 py-3 text-left text-white shadow-2xl backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/50 hover:bg-white/20"
     >
-      <span className="flex h-12 w-12 items-center justify-center rounded-[18px] border border-white/15 bg-white/8 text-white transition-all duration-300 group-hover:border-cyan-300/50 group-hover:text-cyan-200">
+      <span className="flex h-12 w-12 items-center justify-center rounded-[18px] border border-white/15 bg-black/20 text-white transition-all duration-300 group-hover:border-cyan-300/50 group-hover:text-cyan-200">
         <Icon size={20} />
       </span>
       <span className="min-w-0">
@@ -93,6 +108,42 @@ const FooterSocialCard: React.FC<{ link: FooterSocialLink }> = ({ link }) => {
         </span>
       </span>
     </a>
+  );
+};
+
+const FooterContactLink: React.FC<{ item: FooterContactItem }> = ({ item }) => {
+  const Icon = item.icon;
+  const content = (
+    <>
+      <Icon size={16} className="shrink-0 text-cyan-100/90" />
+      <span className="min-w-0">
+        <span className="block text-[9px] font-black uppercase tracking-[0.22em] text-cyan-100/60">
+          {item.label}
+        </span>
+        <span className="block truncate text-sm font-black text-white">
+          {item.value}
+        </span>
+      </span>
+    </>
+  );
+
+  if (item.href) {
+    return (
+      <a
+        href={item.href}
+        target={item.href.startsWith('http') ? '_blank' : undefined}
+        rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
+        className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left transition-all hover:border-cyan-200/40 hover:bg-white/10"
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left">
+      {content}
+    </div>
   );
 };
 
@@ -979,32 +1030,101 @@ const App: React.FC = () => {
 
           {/* GLOBÁLNÍ FOOTER */}
           {currentPage !== 'imaginator' && (
-            <footer className="relative pt-40 pb-20 overflow-hidden text-center border-t border-white/10 mt-auto w-full min-h-[400px] flex items-center justify-center">
-              {/* OBRÁZEK NA POZADÍ PATIČKY */}
-              <div className="absolute inset-0 z-0">
-                <img src="/img/FOOT.JPG" alt="Footer Background" className="w-full h-full object-cover" />
-                {/* Volitelný překryv pro lepší čitelnost obsahu nad obrázkem */}
-                <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px]"></div>
-              </div>
+            <footer className="relative mt-28 w-full overflow-hidden bg-[#020202] text-white">
+              <div className="relative z-30 -mb-24 px-4 sm:px-6">
+                <div className="mx-auto max-w-6xl rounded-[36px] border border-white/20 bg-white/10 p-5 shadow-[0_28px_100px_rgba(0,0,0,0.48)] backdrop-blur-2xl sm:p-6">
+                  <div className="mb-5 flex flex-col gap-4 text-left lg:flex-row lg:items-end lg:justify-between">
+                    <div>
+                      <p className="mb-2 text-[10px] font-black uppercase tracking-[0.42em] text-cyan-100/75">
+                        Sociální sítě a veřejné kanály
+                      </p>
+                      <h3 className="text-2xl font-black tracking-tight text-white">
+                        Všechny odkazy v jedné skleněné vrstvě
+                      </h3>
+                    </div>
+                    <button
+                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                      className="inline-flex items-center justify-center gap-3 self-start rounded-2xl border border-white/20 bg-black/25 px-5 py-3 text-xs font-black uppercase tracking-[0.24em] text-white transition-all hover:-translate-y-1 hover:border-cyan-200/50 hover:bg-white/15 lg:self-auto"
+                    >
+                      Nahoru <ArrowUp size={16} />
+                    </button>
+                  </div>
 
-              <div className="relative z-10 w-full px-6 text-white text-center">
-                <div className="mb-16 max-w-6xl mx-auto">
-                  <p className="mb-4 text-[10px] font-black uppercase tracking-[0.4em] text-cyan-100/80">
-                    Sociální sítě a veřejné kanály
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 text-white">
+                  <div className="grid grid-cols-1 gap-4 text-white sm:grid-cols-2 xl:grid-cols-3">
                     {FOOTER_SOCIAL_LINKS.map((link) => (
                       <FooterSocialCard key={`${link.platform}-${link.label}`} link={link} />
                     ))}
                   </div>
-                </div>
-                <nav className="mb-20"><ul className="flex flex-wrap justify-center gap-x-10 md:gap-x-16 gap-y-6 text-white">{['Domů', 'F-IMAGINATOR', 'Předplatné', 'Zásady', 'FAQ'].map((link) => (<li key={link}><button onClick={()=>setCurrentPage(link==='Domů'?'home':link==='F-IMAGINATOR'?'imaginator':'pricing')} className="text-sm font-black uppercase tracking-[0.3em] hover:text-black transition-all">{link}</button></li>))}</ul></nav>
-                <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="mb-20 p-6 rounded-[24px] border border-white/40 text-white hover:bg-white/10 transition-all shadow-2xl"><ArrowUp size={32} /></button>
-                <div className="pt-16 border-t border-white/20 text-[11px] font-black uppercase tracking-[0.5em] flex flex-col md:flex-row justify-center gap-8 md:gap-16 opacity-60">
-                  <p>© {new Date().getFullYear()} IMAGINATOR STUDIO INT.</p><p className="flex items-center gap-3 justify-center"><Box size={14}/> PREMIUM AI BLOCKS</p><p className="flex items-center gap-3 justify-center"><Columns size={14}/> RESPONSIVE V8</p>
+
+                  <nav className="mt-6 border-t border-white/15 pt-5">
+                    <ul className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-white">
+                      {['Domů', 'F-IMAGINATOR', 'Předplatné', 'Zásady', 'FAQ'].map((link) => (
+                        <li key={link}>
+                          <button
+                            onClick={() => setCurrentPage(link === 'Domů' ? 'home' : link === 'F-IMAGINATOR' ? 'imaginator' : 'pricing')}
+                            className="text-xs font-black uppercase tracking-[0.28em] text-white/75 transition-all hover:text-cyan-100"
+                          >
+                            {link}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
                 </div>
               </div>
-              <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-white/5 blur-[180px] rounded-full"></div>
+
+              <div className="relative min-h-[720px] overflow-hidden bg-[#020202] pt-40 md:min-h-[650px]">
+                <div
+                  className="absolute inset-x-0 top-0 h-[310px]"
+                  style={{
+                    backgroundImage:
+                      'radial-gradient(circle, rgba(255,255,255,0.17) 1px, transparent 1px), linear-gradient(180deg, #020202 0%, #050505 100%)',
+                    backgroundSize: '40px 40px, 100% 100%',
+                  }}
+                />
+                <div className="absolute left-[12%] top-0 h-[260px] border-l border-dashed border-white/15" />
+                <div className="absolute left-[36%] top-0 hidden h-[260px] border-l border-dashed border-white/15 md:block" />
+                <div className="absolute right-[18%] top-0 hidden h-[260px] border-l border-dashed border-white/15 lg:block" />
+
+                <div className="absolute left-0 top-[210px] h-20 w-[36%] rounded-br-[32px] bg-[#f7f4f3]" />
+                <div className="absolute left-[34%] top-[160px] hidden h-[130px] w-[36%] rounded-b-[36px] bg-[#f8ecea] md:block" />
+                <div className="absolute inset-x-0 bottom-[280px] h-[190px] bg-[#f5f7f4]" />
+                <div className="absolute left-0 bottom-[280px] h-[128px] w-[44%] rounded-tr-[34px] bg-[#020202]" />
+
+                <div className="absolute inset-x-0 bottom-0 h-[320px] border-t border-cyan-200/20 bg-[linear-gradient(135deg,#002d57_0%,#003d73_45%,#03182e_100%)] shadow-[0_-30px_120px_rgba(14,165,233,0.22)]" />
+                <div className="absolute -bottom-48 -left-32 h-[600px] w-[560px] overflow-hidden rounded-tr-[68px] opacity-75 md:-left-20">
+                  <img
+                    src="/img/world.png"
+                    alt=""
+                    aria-hidden="true"
+                    className="h-full w-full object-cover object-left-bottom mix-blend-screen"
+                  />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_42%_52%,rgba(34,211,238,0.35),transparent_36%),linear-gradient(90deg,rgba(0,12,28,0.25),rgba(0,12,28,0.75))]" />
+                </div>
+
+                <div className="relative z-20 mx-auto flex min-h-[640px] max-w-6xl flex-col justify-end px-6 pb-12 pt-[360px] md:min-h-[610px] md:pt-[330px]">
+                  <div className="ml-auto w-full max-w-2xl text-left md:text-right">
+                    <p className="mb-3 text-[11px] font-black uppercase tracking-[0.42em] text-cyan-100/70">
+                      DK Services
+                    </p>
+                    <h2 className="text-3xl font-black tracking-[0.08em] text-white md:text-4xl">
+                      David Kozák
+                    </h2>
+                    <div className="ml-0 mt-5 h-px w-full bg-white/70 md:ml-auto md:w-[72%]" />
+                    <p className="mt-5 text-sm font-black uppercase tracking-[0.12em] text-white/90">
+                      Kontakt
+                    </p>
+                    <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                      {FOOTER_CONTACT_ITEMS.map((item) => (
+                        <FooterContactLink key={`${item.label}-${item.value}`} item={item} />
+                      ))}
+                    </div>
+                    <p className="mt-8 text-[10px] font-black uppercase tracking-[0.32em] text-cyan-100/55">
+                      © {new Date().getFullYear()} David Kozák · AI studio · digitalní produkty
+                    </p>
+                  </div>
+                </div>
+              </div>
             </footer>
           )}
 
