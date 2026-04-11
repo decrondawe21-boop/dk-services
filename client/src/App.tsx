@@ -54,6 +54,12 @@ interface FooterSocialLink {
   icon: React.ElementType;
 }
 
+interface FooterSignatureLink {
+  label: string;
+  href: string;
+  style: React.CSSProperties;
+}
+
 const FOOTER_SOCIAL_LINKS: FooterSocialLink[] = [
   { platform: 'Facebook', label: 'DKI s.r.o.', url: 'https://facebook.com/dki.sro/', icon: FaFacebookF },
   { platform: 'Facebook', label: 'Restart Integrace', url: 'https://www.facebook.com/people/Restart-Integrace/61578734430090/', icon: FaFacebookF },
@@ -68,6 +74,34 @@ const FOOTER_SOCIAL_LINKS: FooterSocialLink[] = [
   { platform: 'Pinterest', label: 'davidkozak0i', url: 'https://www.pinterest.com/davidkozak0i', icon: FaPinterestP },
   { platform: 'Twitch', label: 'davidkozak1nternational', url: 'https://www.twitch.tv/davidkozak1nternational', icon: FaTwitch },
   { platform: 'TikTok', label: '@david.kozak.i', url: 'https://www.tiktok.com/@david.kozak.i', icon: FaTiktok },
+];
+
+const FOOTER_SIGNATURE_LINKS: FooterSignatureLink[] = [
+  {
+    label: 'Osobní web: www.osobnidavid-kozak.com',
+    href: 'https://www.osobnidavid-kozak.com',
+    style: { left: '62.5%', top: '73.4%', width: '18%', height: '5.4%' },
+  },
+  {
+    label: 'Social hub: www.davidkozak.social',
+    href: 'https://davidkozak.social/',
+    style: { left: '65.2%', top: '78.2%', width: '13.8%', height: '5.4%' },
+  },
+  {
+    label: 'Lokace: Czech Republic - Ústí nad Labem',
+    href: 'https://www.google.com/maps/search/?api=1&query=Czech%20Republic%20%C3%9Ast%C3%AD%20nad%20Labem',
+    style: { left: '60.6%', top: '85%', width: '19%', height: '5.4%' },
+  },
+  {
+    label: 'Telefon: +420 705 224 436',
+    href: 'tel:+420705224436',
+    style: { left: '84.6%', top: '77.2%', width: '13.2%', height: '5.8%' },
+  },
+  {
+    label: 'E-mail: kozak@d-international.eu',
+    href: 'mailto:kozak@d-international.eu',
+    style: { left: '81.4%', top: '85.3%', width: '16.4%', height: '5.8%' },
+  },
 ];
 
 const FooterSocialCard: React.FC<{ link: FooterSocialLink }> = ({ link }) => {
@@ -1059,11 +1093,32 @@ const App: React.FC = () => {
               </div>
 
               <div className="relative overflow-hidden bg-[#00375f] pt-16">
-                <img
-                  src="/img/footer-signature.png"
-                  alt="Footer kontakt David Kozák"
-                  className="block h-[220px] w-full object-cover object-center sm:h-[300px] lg:h-auto"
-                />
+                <div className="relative left-1/2 h-[220px] w-[728px] -translate-x-1/2 sm:h-[300px] sm:w-[993px] lg:h-auto lg:w-full">
+                  <img
+                    src="/img/footer-signature.png"
+                    alt="Footer kontakt David Kozák"
+                    className="block h-full w-full lg:h-auto"
+                  />
+                  <div className="absolute inset-0 z-10" aria-label="Klikací kontakty ve footeru">
+                    {FOOTER_SIGNATURE_LINKS.map((link) => {
+                      const isExternal = link.href.startsWith('http');
+
+                      return (
+                        <a
+                          key={link.label}
+                          href={link.href}
+                          target={isExternal ? '_blank' : undefined}
+                          rel={isExternal ? 'noreferrer' : undefined}
+                          title={link.label}
+                          style={link.style}
+                          className="absolute rounded-md transition-colors hover:bg-cyan-200/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200/90"
+                        >
+                          <span className="sr-only">{link.label}</span>
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
                 <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#020202] via-[#020202]/70 to-transparent" />
               </div>
             </footer>
