@@ -4,7 +4,7 @@ import {
   Menu, X, Home, Sparkles, CreditCard,
   Sun, Moon, Smartphone, Monitor,
   ArrowLeft, ArrowUp, ChevronLeft, ChevronRight,
-  Zap, Check, Globe, Mail, MapPin, Phone,
+  Zap, Check, Globe,
   LayoutDashboard, Image as ImageIcon, History, User, Settings as SettingsIcon,
   Bell, Loader2, Palette as PaletteIcon, Hash, Quote, Download,
   Plus, Minus, Shuffle, BookOpen, ExternalLink
@@ -54,13 +54,6 @@ interface FooterSocialLink {
   icon: React.ElementType;
 }
 
-interface FooterContactItem {
-  label: string;
-  value: string;
-  href?: string;
-  icon: React.ElementType;
-}
-
 const FOOTER_SOCIAL_LINKS: FooterSocialLink[] = [
   { platform: 'Facebook', label: 'DKI s.r.o.', url: 'https://facebook.com/dki.sro/', icon: FaFacebookF },
   { platform: 'Facebook', label: 'Restart Integrace', url: 'https://www.facebook.com/people/Restart-Integrace/61578734430090/', icon: FaFacebookF },
@@ -75,14 +68,6 @@ const FOOTER_SOCIAL_LINKS: FooterSocialLink[] = [
   { platform: 'Pinterest', label: 'davidkozak0i', url: 'https://www.pinterest.com/davidkozak0i', icon: FaPinterestP },
   { platform: 'Twitch', label: 'davidkozak1nternational', url: 'https://www.twitch.tv/davidkozak1nternational', icon: FaTwitch },
   { platform: 'TikTok', label: '@david.kozak.i', url: 'https://www.tiktok.com/@david.kozak.i', icon: FaTiktok },
-];
-
-const FOOTER_CONTACT_ITEMS: FooterContactItem[] = [
-  { label: 'Osobní web', value: 'www.osobnidavid-kozak.com', href: 'https://www.osobnidavid-kozak.com', icon: Globe },
-  { label: 'Telefon', value: '+420 705 224 436', href: 'tel:+420705224436', icon: Phone },
-  { label: 'Social hub', value: 'www.davidkozak.social', href: 'https://davidkozak.social/', icon: Globe },
-  { label: 'Lokace', value: 'Czech Republic - Ústí nad Labem', icon: MapPin },
-  { label: 'E-mail', value: 'kozak@d-international.eu', href: 'mailto:kozak@d-international.eu', icon: Mail },
 ];
 
 const FooterSocialCard: React.FC<{ link: FooterSocialLink }> = ({ link }) => {
@@ -108,42 +93,6 @@ const FooterSocialCard: React.FC<{ link: FooterSocialLink }> = ({ link }) => {
         </span>
       </span>
     </a>
-  );
-};
-
-const FooterContactLink: React.FC<{ item: FooterContactItem }> = ({ item }) => {
-  const Icon = item.icon;
-  const content = (
-    <>
-      <Icon size={16} className="shrink-0 text-cyan-100/90" />
-      <span className="min-w-0">
-        <span className="hidden text-[8px] font-black uppercase tracking-[0.2em] text-cyan-100/55 sm:block">
-          {item.label}
-        </span>
-        <span className="block max-w-[11rem] truncate text-[11px] font-black text-white">
-          {item.value}
-        </span>
-      </span>
-    </>
-  );
-
-  if (item.href) {
-    return (
-      <a
-        href={item.href}
-        target={item.href.startsWith('http') ? '_blank' : undefined}
-        rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
-        className="inline-flex h-11 items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 text-left transition-all hover:border-cyan-200/40 hover:bg-white/15"
-      >
-        {content}
-      </a>
-    );
-  }
-
-  return (
-    <div className="inline-flex h-11 items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3 text-left">
-      {content}
-    </div>
   );
 };
 
@@ -1084,14 +1033,6 @@ const App: React.FC = () => {
                   <div className="flex flex-wrap items-center justify-center gap-2">
                     {FOOTER_SOCIAL_LINKS.map((link) => (
                       <FooterSocialCard key={`${link.platform}-${link.label}`} link={link} />
-                    ))}
-                  </div>
-
-                  <span className="hidden h-9 w-px bg-white/20 xl:block" />
-
-                  <div className="flex flex-wrap items-center justify-center gap-2">
-                    {FOOTER_CONTACT_ITEMS.map((item) => (
-                      <FooterContactLink key={`${item.label}-${item.value}`} item={item} />
                     ))}
                   </div>
 
