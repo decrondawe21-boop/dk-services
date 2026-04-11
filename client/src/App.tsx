@@ -325,7 +325,13 @@ const App: React.FC = () => {
     { id: 4, q: 'Je moje galerie soukromá?', a: 'Ano, vaše vygenerované artefakty se ukládají lokálně v mezipaměti prohlížeče a v rámci vašeho profilu v této relaci.' }
   ];
 
-  const publicProjects = [
+  const publicProjects: Array<{
+    name: string;
+    url: string;
+    description: string;
+    socialUrl?: string;
+    socialLabel?: string;
+  }> = [
     {
       name: 'International',
       url: 'https://international.david-kozak.com',
@@ -365,6 +371,13 @@ const App: React.FC = () => {
       name: 'Appka',
       url: 'https://appka.david-kozak.com/',
       description: 'Aplikační projekty a praktické nástroje pro klienty.'
+    },
+    {
+      name: 'REPAS|MOBILE',
+      url: 'https://repasmobile.david-kozak.com',
+      description: 'Repasované telefony, mobilní servis a prodejní projekt pod značkou David Kozák.',
+      socialUrl: 'https://www.facebook.com/profile.php?id=61585216586307',
+      socialLabel: 'Facebook profil'
     },
     {
       name: 'Dev / DK',
@@ -686,14 +699,18 @@ const App: React.FC = () => {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                         {publicProjects.map((project) => (
-                          <a
+                          <article
                             key={project.url}
-                            href={project.url}
-                            target="_blank"
-                            rel="noreferrer noopener"
                             className="group/project rounded-2xl overflow-hidden border border-white/20 bg-black/20 backdrop-blur-md hover:bg-black/30 transition-all duration-500 hover:-translate-y-1"
                           >
-                            <div className="relative aspect-[16/10] overflow-hidden">
+                            <a
+                              href={project.url}
+                              target="_blank"
+                              rel="noreferrer noopener"
+                              aria-label={`Otevřít projekt ${project.name}`}
+                              className="block"
+                            >
+                              <div className="relative aspect-[16/10] overflow-hidden">
                               <div className="absolute inset-0 bg-gradient-to-br from-teal-900 via-emerald-900 to-cyan-900 flex items-end p-4">
                                 <p className="text-[10px] text-white/80 font-black uppercase tracking-[0.3em]">
                                   {getProjectDomain(project.url)}
@@ -716,7 +733,8 @@ const App: React.FC = () => {
                                 }}
                               />
                               <div className="absolute inset-0 bg-gradient-to-t from-[#052e2b]/80 via-transparent to-transparent"></div>
-                            </div>
+                              </div>
+                            </a>
 
                             <div className="p-5 space-y-3">
                               <div className="flex items-center justify-between gap-3">
@@ -749,11 +767,30 @@ const App: React.FC = () => {
                                   </div>
                                   <h3 className="text-white font-black text-lg tracking-tight truncate">{project.name}</h3>
                                 </div>
-                                <ExternalLink className="w-4 h-4 text-teal-200 opacity-70 group-hover/project:opacity-100 shrink-0" />
+                                <a
+                                  href={project.url}
+                                  target="_blank"
+                                  rel="noreferrer noopener"
+                                  aria-label={`Otevřít projekt ${project.name}`}
+                                  className="rounded-full p-2 text-teal-200 opacity-70 transition-all hover:bg-white/10 hover:opacity-100 group-hover/project:opacity-100"
+                                >
+                                  <ExternalLink className="w-4 h-4 shrink-0" />
+                                </a>
                               </div>
                               <p className="text-white/80 text-sm leading-relaxed">{project.description}</p>
+                              {project.socialUrl && (
+                                <a
+                                  href={project.socialUrl}
+                                  target="_blank"
+                                  rel="noreferrer noopener"
+                                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.22em] text-teal-100 transition-all hover:border-teal-200/50 hover:bg-white/20"
+                                >
+                                  <FaFacebookF size={12} />
+                                  {project.socialLabel ?? 'Sociální síť'}
+                                </a>
+                              )}
                             </div>
-                          </a>
+                          </article>
                         ))}
                       </div>
                     </div>
