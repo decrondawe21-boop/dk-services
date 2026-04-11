@@ -572,6 +572,10 @@ const App: React.FC = () => {
       {/* FRAME ZAŘÍZENÍ */}
       <div className={`relative transition-all duration-700 shadow-2xl overflow-hidden ${deviceMode === 'mobile' ? 'w-[375px] h-[812px] rounded-[48px] border-[12px] border-slate-900 bg-black' : 'w-full h-full min-h-screen'}`}>
         <div className="h-full overflow-y-auto custom-scroll relative flex flex-col" style={{ background: currentBg }}>
+          <div className="pointer-events-none fixed -bottom-36 -right-32 z-[2] hidden h-[42rem] w-[42rem] opacity-20 mix-blend-screen lg:block" aria-hidden="true">
+            <img src="/img/world.png" alt="" className="h-full w-full object-contain" />
+          </div>
+
           {/* NAV TRIGGER */}
           <button onClick={() => setIsMenuOpen(true)} className="fixed top-6 right-6 z-[100] p-3 rounded-2xl shadow-2xl border border-white/20" style={{ background: brandGradient }}>
             <Menu className="w-6 h-6 text-white" />
