@@ -348,6 +348,13 @@ const App: React.FC = () => {
       description: 'AI platforma pro generování obsahu a kreativní workflow.'
     },
     {
+      name: 'REST||ART INTEGRACE',
+      url: 'https://restartintegrace.david-kozak.com',
+      description: 'Hlavní projekt zaměřený na restart, integraci a veřejnou podporu komunitního ekosystému.',
+      socialUrl: 'https://www.facebook.com/groups/2222234904896631/',
+      socialLabel: 'Facebook skupina'
+    },
+    {
       name: 'New Project',
       url: 'https://new.david-kozak.com/',
       description: 'Experimentální prostor pro nové nápady a prototypy.'
